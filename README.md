@@ -1,2 +1,2 @@
-# traversalspace.github.io
+# traversals.github.io
 Traversal Space website
