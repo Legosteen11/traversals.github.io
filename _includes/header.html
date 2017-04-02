@@ -1,0 +1,15 @@
+<div id="header">
+    <div id="cover">&nbsp;</div>
+    <div id="nav" class="fixed-width">
+        <span id="title">
+            <b>Traversal</b><small>.space</small>
+        </span>
+        <span id="menu">
+            <a href="/" class="{% if page.id == "home" %}selected{% endif %}">Home</a> 
+            <a href="/kapsule" class="{% if page.id == "kapsule" %}selected{% endif %}">Kapsule</a> 
+            <a href="https://github.com/{{ site.social_github }}" title="GitHub" target="_blank" class="icon">
+                <img src="{{ site.baseurl }}/assets/images/nav_github.png"/>
+            </a>
+        </span>
+    </div>
+</div>
