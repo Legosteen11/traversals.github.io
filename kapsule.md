@@ -27,6 +27,8 @@ To accomplish all of these, Kapsule is based on [delegation](http://kotlinlang.o
 
 ## Javadocs
 
+* Version 0.2
+    - [kapsule-core](/docs/kapsule/0.2/kapsule-core/index.html)
 * Version 0.1
     - [kapsule-core](/docs/kapsule/0.1/kapsule-core/index.html)
 
