@@ -49,7 +49,6 @@ hr {
 /* Header */
 
 #header #cover {
-    width: 100%;
     text-align: center;
     background: #f4fbff url('../assets/images/logo_medium.png') no-repeat center center;
 }
@@ -99,7 +98,6 @@ hr {
 /* Footer */
 
 #footer {
-    width: 100%;
     padding: 15px 10px 15px 10px;
     display: block;
     font-family: 'Dosis', sans-serif;
@@ -137,9 +135,9 @@ hr {
 }
 
 /* Phone-only */
-@media only screen and (min-width: 100px) and (max-width: 360px) {
+@media only screen and (min-width: 100px) and (max-width: 800px) {
     .fixed-width {
-        max-width: 360px!important;
+        max-width: 800px!important;
     }
     
     #header #cover {
@@ -153,9 +151,9 @@ hr {
 }
 
 /* Desktop-only */
-@media only screen and (min-width: 360px) {
+@media only screen and (min-width: 800px) {
     .fixed-width {
-        max-width: 900px!important;
+        max-width: 1000px!important;
     }
     
     #header #cover {
