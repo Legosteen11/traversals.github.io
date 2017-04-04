@@ -82,14 +82,7 @@ hr {
     color: #fff;
 }
 
-#header #nav #menu a:hover {
-    opacity: 1.0;
-}
-
-#header #nav #menu a.selected, #header #nav #menu a.selected:hover {
-/*    background: #fff;*/
-    border-radius: 5px;
-/*    color: #5d7482;*/
+#header #nav #menu a:hover, #header #nav #menu a.selected, #header #nav #menu a.selected:hover {
     opacity: 1.0;
 }
 
