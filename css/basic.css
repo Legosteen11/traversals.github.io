@@ -4,7 +4,7 @@ body {
     margin: 0;
     padding: 0;
     background: #6d8492;
-    font-family: 'Dosis', sans-serif;
+    font-family: 'Cuprum', sans-serif;
 }
 
 h1, h2, h3, h4, p {
@@ -54,13 +54,17 @@ hr {
 }
 
 #header #nav {
-    padding: 8px 10px 15px 10px;
+    padding: 8px 10px 12px 10px;
     vertical-align: middle;
     background: #6d8492;
     text-align: center;
-    font-family: 'Dosis', sans-serif;
+    font-family: 'Cuprum', sans-serif;
     font-size: 18pt;
     color: #fff;
+}
+
+#header #nav #title small {
+    font-size: 12pt;
 }
 
 #header #nav #menu {
@@ -71,7 +75,7 @@ hr {
 
 #header #nav #menu a {
     margin: 0 4px 0 4px;
-    padding: 2px 4px 2px 4px;
+    padding: 2px 4px 1px 4px;
     text-decoration: none;
     font-weight: bold;
     opacity: 0.5;
@@ -100,7 +104,6 @@ hr {
 #footer {
     padding: 15px 10px 15px 10px;
     display: block;
-    font-family: 'Dosis', sans-serif;
     text-align: center;
     font-size: 14px;
     color: #f4fbff;

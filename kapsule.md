@@ -9,7 +9,6 @@ description: What brings you here?
 
 Minimalist dependency injection library for Kotlin.
 
-
 Why create another dependency injection library? Here are the objectives pursued by Kapsule:
 
 * Simple features that most projects will have use for
@@ -35,5 +34,4 @@ To accomplish all of these, Kapsule is based on [delegation](http://kotlinlang.o
 ## Links
 
 * [GitHub](https://github.com/traversals/kapsule)
-* [Bintray](https://bintray.com/traversals/maven/kapsule)
-* [Maven Central](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22space.traversal.kapsule%22)
+* [Bintray](https://bintray.com/traversals/maven/kapsule) / [Maven Central](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22space.traversal.kapsule%22)
