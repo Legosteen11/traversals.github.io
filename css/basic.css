@@ -74,8 +74,8 @@ hr {
 }
 
 #header #nav #menu a {
-    margin: 0 4px 0 4px;
-    padding: 3px 4px 2px 4px;
+    margin: 0 2px 0 2px;
+    padding: 5px 5px 3px 5px;
     text-decoration: none;
     font-weight: bold;
     opacity: 0.5;
