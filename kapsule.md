@@ -2,7 +2,7 @@
 layout: post
 id: kapsule
 title: Kapsule
-description: What brings you here?
+description: Minimalist dependency injection library for Kotlin.
 ---
 
 # Kapsule
