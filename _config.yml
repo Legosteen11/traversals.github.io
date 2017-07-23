@@ -16,6 +16,7 @@
 
 # Build settings
 markdown: kramdown
+baseurl: ""
 
 # Content
 title: "Traversal Space"

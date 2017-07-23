@@ -111,7 +111,7 @@ hr {
 
 #content {
     max-width: 1000px;
-    background: #fff url('/assets/images/bg_content.png') bottom right no-repeat;
+    background: #fff url('../assets/images/bg_content.png') bottom right no-repeat;
 	background-size: 200px 100px;
     font-size: 13pt;
     color: #393b3c;

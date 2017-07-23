@@ -5,9 +5,9 @@
             <b>Traversal</b>&#8202;<small>space</small>
         </span>
         <span id="menu">
-            <a href="/" class="{% if page.id == "home" %}selected{% endif %}">Home</a> 
-            <a href="/luxaforus" class="{% if page.id == "luxaforus" %}selected{% endif %}">Luxaforus</a> 
-            <a href="/kapsule" class="{% if page.id == "kapsule" %}selected{% endif %}">Kapsule</a> 
+            <a href="{{ site.baseurl }}/" class="{% if page.id == "home" %}selected{% endif %}">Home</a> 
+            <a href="{{ site.baseurl }}/luxaforus" class="{% if page.id == "luxaforus" %}selected{% endif %}">Luxaforus</a> 
+            <a href="{{ site.baseurl }}/kapsule" class="{% if page.id == "kapsule" %}selected{% endif %}">Kapsule</a> 
             <a href="https://github.com/{{ site.social_github }}" title="GitHub" target="_blank" class="icon">
                 <img src="{{ site.baseurl }}/assets/images/nav_github.png"/>
             </a>
