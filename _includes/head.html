@@ -50,4 +50,14 @@
         var email = email[0] + '@' + email[1] + '.' + email[2]
         $('a.traversal-email').attr('href', 'mailto:' + email).text(email)
     });
+	
+	function getQueryParam(name) {
+		url = window.location.href;
+	    name = name.replace(/[\[\]]/g, "\\$&");
+	    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+	        results = regex.exec(url);
+	    if (!results) return null;
+	    if (!results[2]) return '';
+	    return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}
 </script>

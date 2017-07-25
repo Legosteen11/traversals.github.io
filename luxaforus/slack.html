@@ -1,0 +1,42 @@
+---
+layout: nonav
+id: luxaforus-slack
+title: Luxaforus Slack Integration
+description: Slack integration for Luxaforus.
+---
+
+<script>
+	
+    $(document).ready(function() {
+		if (getQueryParam("code")) {
+			$("#code-found").show();
+			$("#code-not-found").hide();
+		} else {
+			$("#code-found").hide();
+			$("#code-not-found").show();
+		}
+	});
+	
+	function openLuxaforusAction() {
+		window.location = "luxaforus://slack/activate?code=" + getQueryParam("code");
+	}
+	
+</script>
+
+<h1>Luxaforus Slack</h1>
+
+<span id="code-found">
+	<p>If you've been redirected here by the Slack login screen, click the button below to open the activation code in Luxaforus to complete the authentication process.</p>
+		
+	<p><em>Note:</em> Ensure that Luxaforus is running before proceeding.</p>
+
+	<p>
+		<a href="javascript:void(0);" class="action" onclick="openLuxaforusAction()">Open Luxaforus</a>
+	</p>
+</span>
+
+<span id="code-not-found">
+	<p>Activation code not found, are you sure you were redirected here by Slack login?</p>
+	
+	<p>To try again, click 'Add Slack Integration' in Luxaforus preferences and you will be redirected to Slack login.</p>
+</span>

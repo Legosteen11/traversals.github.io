@@ -20,6 +20,17 @@ a:hover {
     text-decoration: underline;
 }
 
+a.action {
+	display: inline-block;
+	padding: 10px 15px 10px 15px;
+	background: #eeeeee;
+	border-radius: 3px;
+}
+a.action:hover {
+	background: #e7e7e7;
+	text-decoration: none;
+}
+
 code {
     color: #46555e;
     font-family: "Roboto Mono", Courier, monospace;
