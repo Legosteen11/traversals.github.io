@@ -8,12 +8,13 @@ description: Slack integration for Luxaforus.
 <script>
 	
     $(document).ready(function() {
-		if (getQueryParam("code")) {
-			$("#code-found").show();
-			$("#code-not-found").hide();
+		$("#loading-container, #open-container, #unsupported-container, #nocode-container").hide();
+		if (!getQueryParam("code")) {
+			$("#nocode-container").show();
+		} else if (!navigator.platform.match(/(Mac)/i)) {
+			$("#unsupported-container").show();
 		} else {
-			$("#code-found").hide();
-			$("#code-not-found").show();
+			$("#open-container").show();
 		}
 	});
 	
@@ -23,20 +24,34 @@ description: Slack integration for Luxaforus.
 	
 </script>
 
-<h1>Luxaforus Slack</h1>
+<h1>Luxaforus Slack Activation</h1>
 
-<span id="code-found">
-	<p>If you've been redirected here by the Slack login screen, click the button below to open the activation code in Luxaforus to complete the authentication process.</p>
+<span id="loading-container"> 
+	<p>Loading…</p>
+</span>
+
+<span id="unsupported-container" style="display:none;">
+	<h2>ERROR: Unsupported platform</h2>
+	
+	<p>Luxaforus only runs on macOS, your browser appears to be running on a different platform.</p>
+	
+	<p>To complete Slack authentication, the activation link must be opened in the native app, which you can't run on your current platform.</p>
+</span>
+
+<span id="nocode-container" style="display:none;">
+	<h2>ERROR: Missing activation code</h2>
+	
+	<p>Activation code not found, are you sure you were redirected here by Slack authorisation?</p>
+	
+	<p>To try again, click 'Add Slack Integration' in Luxaforus preferences and you will be redirected to Slack login.</p>
+</span>
+
+<span id="open-container" style="display:none;">
+	<p>If you were redirected here by Slack authorisation, click the button below to open the activation link in Luxaforus to complete authentication.</p>
 		
-	<p><em>Note:</em> Ensure that Luxaforus is running before proceeding.</p>
+	<p>Ensure that Luxaforus is running before proceeding.</p>
 
 	<p>
 		<a href="javascript:void(0);" class="action" onclick="openLuxaforusAction()">Open Luxaforus</a>
 	</p>
-</span>
-
-<span id="code-not-found">
-	<p>Activation code not found, are you sure you were redirected here by Slack login?</p>
-	
-	<p>To try again, click 'Add Slack Integration' in Luxaforus preferences and you will be redirected to Slack login.</p>
 </span>
