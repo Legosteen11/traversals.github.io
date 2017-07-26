@@ -134,6 +134,10 @@ hr {
 
 /* Sections */
 
+.section {
+	position: relative;
+}
+
 .fixed-width {
     margin: 0 auto 0 auto;
 }
