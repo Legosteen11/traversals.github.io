@@ -46,9 +46,9 @@
     ga('send', 'pageview');
     
     $(document).ready(function() {
-        var email = ['hello', 'traversal', 'space']
-        var email = email[0] + '@' + email[1] + '.' + email[2]
-        $('a.traversal-email').attr('href', 'mailto:' + email).text(email)
+        var email = [String.fromCharCode(104, 101, 108, 108, 111), 'traversal', 'space'];
+        var email = email[0] + '@' + email[1] + '.' + email[2];
+        $('a.traversal-email').attr('href', 'mailto:' + email).text(email);
     });
 	
 	function getQueryParam(name) {

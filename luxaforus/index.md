@@ -19,5 +19,6 @@ Luxaforus is also integrated with the Slack API to synchronise your 'Do Not Dist
 
 ## Links
 
+* [Download](https://github.com/traversals/luxaforus/releases/latest)
 * [GitHub](https://github.com/traversals/luxaforus)
-
+* [Privacy policy](/luxaforus/privacy)
