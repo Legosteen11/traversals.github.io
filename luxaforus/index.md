@@ -9,6 +9,8 @@ description: Minimalist Luxafor client application for macOS.
 
 Minimalist [Luxafor](https://luxafor.com/) client application for macOS.
 
+<img src="../assets/images/hero_luxaforus.png" width="400" height="160" />
+
 ## How it works
 
 There are no explicit controls for the light, instead the light turns red when the 'Do Not Disturb' mode is enabled in the macOS Notification Center and green when it's disabled. When your computer goes to sleep mode or the application is quitting, the light will be turned off.
