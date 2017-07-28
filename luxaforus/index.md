@@ -9,7 +9,7 @@ description: Minimalist Luxafor client application for macOS.
 
 Minimalist [Luxafor](https://luxafor.com/) client application for macOS.
 
-<img src="../assets/images/hero_luxaforus.png" width="400" height="160" />
+<img class="hero" src="../assets/images/hero_luxaforus.png" />
 
 ## How it works
 

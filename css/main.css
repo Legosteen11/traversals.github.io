@@ -148,6 +148,8 @@ hr {
     display: table;
 }
 
+/* Generic media */
+
 /* Desktop-only */
 @media only screen and (min-width: 900px) {
     .fixed-width {
@@ -170,7 +172,7 @@ hr {
 }
 
 /* Phone-only */
-@media only screen and (min-width: 100px) and (max-width: 900px) {
+@media only screen and (min-width: 250px) and (max-width: 900px) {
     .fixed-width {
         max-width: 900px!important;
     }
@@ -187,5 +189,22 @@ hr {
     #content {
         padding: 15px 20px 15px 20px;
         border-radius: 0px;
+    }
+}
+
+/* Size-specific media */
+
+@media only screen and (min-width: 450px) {
+    img.hero {
+        width: 400px;
+        height: auto;
+    }
+}
+
+/* Phone-only */
+@media only screen and (min-width: 250px) and (max-width: 450px) {
+    img.hero {
+        width: 100%;
+        height: auto;
     }
 }
