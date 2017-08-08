@@ -41,6 +41,7 @@ pre.highlight {
     padding: 10px;
     background: #f5f5f5;
     border-radius: 5px;
+	white-space: pre-wrap;
 }
 
 blockquote {
