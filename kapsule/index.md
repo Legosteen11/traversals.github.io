@@ -35,6 +35,7 @@ To accomplish all of these, Kapsule is based on [delegation](http://kotlinlang.o
 	- [Module implementations](#module-implementations)
 	- [Multiple modules](#multiple-modules)
 	- [Optional delegates](#optional-delegates)
+	- [Transitive dependencies (experimental)](#transitive-dependencies)
 	- [Manual injection](#manual-injection)
 	- [Variable delegates](#variable-delegates)
 * [Kotlin 1.0 vs 1.1](#kotlin-1.0-vs-1.1)
@@ -52,7 +53,7 @@ To use Kapsule in your project, include it as a dependency.
   
 ~~~gradle
 dependencies {
-    compile "space.traversal.kapsule:kapsule-core:0.2"
+    compile "space.traversal.kapsule:kapsule-core:0.3"
 }
 ~~~
 
@@ -209,6 +210,62 @@ Given both fields are strings, `firstName` is `String`, while `lastName` is `Str
 
 Unlike non-null properties, nullable ones can be read even before injection (the former would throw `KotlinNullPointerException`). 
 
+<a name="transitive-dependencies"/>
+### Transitive dependencies (experimental)
+
+**Note:** Introduced in version 0.3 as an experimental feature. That means the API may change in future versions.
+
+Consider `UserDao` and an authenticator `Auth` that depends on it. Except the former is provided by `DataModule`, but the latter comes from `LogicModule`.
+
+~~~kotlin
+class Module(
+        data: DataModule, 
+        logic: LogicModule) : 
+        DataModule by data, 
+        LogicModule by logic
+
+interface DataModule {
+    val userDao: UserDao
+}
+
+interface LogicModule {
+    val auth: Auth
+}
+~~~
+
+This is where the transitive injection comes in, the `UserDao` can be injected into the `LogicModule`.
+
+~~~kotlin
+class MainDataModule : DataModule {
+    override val userDao get() = UserDao()
+}
+
+class MainLogicModule : LogicModule, Injects<Module> {
+    private val userDao by required { userDao }
+    override val auth get() = Auth(userDao)
+}
+~~~
+
+Looks good, but it won't work without a modification to `Module`:
+
+* It has to implement `HasModules` to suggest that it has submodules
+* `HasModules` requires you to define the module instances
+
+~~~kotlin
+class Module(
+        data: DataModule, logic: LogicModule) : 
+        DataModule by data, LogicModule by logic,
+        HasModules {
+    override val modules = setOf(data, logic)
+}
+~~~
+
+Finally, when instantiating the module, you need to call `transitive()` on the module to traverse the tree and inject the `Module` into any submodules depending on it.
+
+~~~kotlin
+val module = Module(MainDataModule(), MainLogicModule()).transitive()
+~~~
+
 <a name="manual-injection"/>
 ### Manual injection
 
@@ -268,6 +325,8 @@ For sample projects using Kapsule, see the [samples](https://github.com/traversa
 <a name="javadocs"/>
 ## Javadocs
 
+* Version 0.3
+    - [kapsule-core]({{ site.baseurl }}/docs/kapsule/0.3/kapsule-core/index.html)
 * Version 0.2
     - [kapsule-core]({{ site.baseurl }}/docs/kapsule/0.2/kapsule-core/index.html)
 * Version 0.1
@@ -277,4 +336,5 @@ For sample projects using Kapsule, see the [samples](https://github.com/traversa
 ## Links 
 
 * [GitHub](https://github.com/traversals/kapsule)
-* [Bintray](https://bintray.com/traversals/maven/kapsule) / [Maven Central](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22space.traversal.kapsule%22)
+* [Bintray](https://bintray.com/traversals/maven/kapsule)
+* [Maven Central](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22space.traversal.kapsule%22)
