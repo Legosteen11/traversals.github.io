@@ -219,10 +219,8 @@ Consider `UserDao` and an authenticator `Auth` that depends on it. Except the fo
 
 ~~~kotlin
 class Module(
-        data: DataModule, 
-        logic: LogicModule) : 
-        DataModule by data, 
-        LogicModule by logic
+        data: DataModule, logic: LogicModule) : 
+        DataModule by data, LogicModule by logic
 
 interface DataModule {
     val userDao: UserDao
