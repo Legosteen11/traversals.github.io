@@ -35,9 +35,10 @@ To accomplish all of these, Kapsule is based on [delegation](http://kotlinlang.o
 	- [Module implementations](#module-implementations)
 	- [Multiple modules](#multiple-modules)
 	- [Optional delegates](#optional-delegates)
-	- [Transitive dependencies (experimental)](#transitive-dependencies)
-	- [Manual injection](#manual-injection)
 	- [Variable delegates](#variable-delegates)
+	- [Transitive dependencies](#transitive-dependencies)
+    - [Complex dependencies](#complex-dependencies)
+	- [Manual injection](#manual-injection)
 * [Kotlin 1.0 vs 1.1](#kotlin-1.0-vs-1.1)
 * [Samples](#samples)
 * [Javadocs](#javadocs)
@@ -51,13 +52,13 @@ To accomplish all of these, Kapsule is based on [delegation](http://kotlinlang.o
 
 To use Kapsule in your project, include it as a dependency.
   
-~~~gradle
+~~~
 dependencies {
     compile "space.traversal.kapsule:kapsule-core:0.3"
 }
 ~~~
 
-Releases are published to `jcenter()` and `mavenCentral()` repositories.
+Releases are simultaneously published to `jcenter()` and `mavenCentral()` repositories.
 
 <a name="create-a-module"/>
 ### Step 2: Create a module
@@ -78,7 +79,7 @@ Our simple example provides the same instance of `name` and a new instance of `M
 <a name="store-module-instance"/>
 ### Step 3: Store module instance
 
-Store the top-level module in your application context (this will depend on your framework).
+Store the root module in your application context (this will depend on your framework).
 
 On Android, you would use the `Application` instance for this. Don't forget to declare the `CustomApplication` class in `AndroidManifest.xml`.
 
@@ -128,7 +129,9 @@ The steps above show the most basic setup, which can be extended for more advanc
 <a name="module-implementation"/>
 ### Module implementations
 
-The basic setup uses one module called `Module`, but what if you need another implementation that returns stub values for tests? You can define an interface and provide two different implementations:
+The basic setup uses one module called `Module`, but what if you need another implementation that returns stub values for tests? 
+
+You can define an interface and provide two different implementations:
  
 ~~~kotlin
 interface Module {
@@ -176,7 +179,7 @@ interface TeaModule {
 }
 ~~~
 
-As described in the previous section, you can have one or more implementations for each module (omitted for brevity) that you can combine them into one `Module` :
+As described in the previous section, you can have one or more implementations for each module (omitted for brevity) that you can combine them into one `Module`:
 
 ~~~kotlin
 class Module(coffee: CoffeeModule, tea: TeaModule) : 
@@ -188,7 +191,7 @@ Now your `Module` contains all the properties and functions of `CoffeeModule` an
 When you're instantiating the global module (stored in your application context), you can provide the required implementation for each submodule:
 
 ~~~kotlin
-object Application {
+class Application {
     val module = Module(
         coffee = MainCoffeeModule() // or TestCoffeeModule()
         tea = MainTeaModule() // or TestTeaModule()
@@ -208,12 +211,27 @@ val lastName by optional { lastName }
 
 Given both fields are strings, `firstName` is `String`, while `lastName` is `String?`.
 
-Unlike non-null properties, nullable ones can be read even before injection (the former would throw `KotlinNullPointerException`). 
+Unlike non-null properties, nullable ones can be read even before injection (the former would throw `KotlinNullPointerException`), they will just be null.
+
+<a name="variable-delegates"/>
+### Variable delegates
+
+In most cases you would make the injected properties `val`, however there's no reason it can't be a `var`, which would allow you to reassign it before or after injection.
+
+~~~kotlin
+var firstName by required { firstName }
+
+init {
+    firstName = "before"
+    kap.inject(Application.module)
+    firstName = "after"
+}
+~~~
+
+Note that any delegates can be injected repeatedly, regardless of whether they're `val` or `var`, because the initialized value is contained within the delegate and it's a nullable `var`.
 
 <a name="transitive-dependencies"/>
-### Transitive dependencies (experimental)
-
-**Note:** Introduced in version 0.3 as an experimental feature. That means the API may change in future versions.
+### Transitive dependencies
 
 Consider `UserDao` and an authenticator `Auth` that depends on it. Except the former is provided by `DataModule`, but the latter comes from `LogicModule`.
 
@@ -244,9 +262,9 @@ class MainLogicModule : LogicModule, Injects<Module> {
 }
 ~~~
 
-Looks good, but it won't work without a modification to `Module`:
+Looks good, but it won't work without two modifications to `Module`:
 
-* It has to implement `HasModules` to suggest that it has submodules
+* It has to implement `HasModules` to suggest that it contains submodules
 * `HasModules` requires you to define the module instances
 
 ~~~kotlin
@@ -264,6 +282,56 @@ Finally, when instantiating the module, you need to call `transitive()` on the m
 val module = Module(MainDataModule(), MainLogicModule()).transitive()
 ~~~
 
+<a name="complex-dependencies"/>
+### Complex dependencies
+
+Traditionally, injected values are kept in the same structure as they are provided by the modules. However, considering that injection functions in Kapsule are essentially just future values that will become accessible after injection happened, you can do anything you would do outside of that function, inside.
+
+Consider the example module implementations from the [transitive dependencies](#transitive-dependencies) section:
+
+~~~kotlin
+class MainDataModule : DataModule {
+    override val userDao get() = UserDao()
+}
+
+class MainLogicModule : LogicModule, Injects<Module> {
+    private val userDao by required { userDao }
+    override val auth get() = Auth(userDao)
+}
+~~~
+
+You'll notice that the `userDao` is being provided by the `MainDataModule` as a new instance each time. What if you wanted to reuse the same instance through the whole life of the module? You would just assign it as a value, rather than return it from a custom getter.
+
+~~~kotlin
+class MainDataModule : DataModule {
+    override val userDao = UserDao()
+}
+~~~
+
+But what about if you want to do the same with `auth` in `MainLogicModule`? You can't just assign `Auth(userDao)` to `auth`, because `Auth()` constructor is called when the `MainLogicModule` is instantiated and by that time the `userDao` hasn't been injected yet (remember, that gets done in the `transitive()` call). That means you need to instantiate `auth` in the same future, when `userDao` will become available.
+
+~~~kotlin
+class MainLogicModule : LogicModule, Injects<Module> {
+    override val auth by required { Auth(userDao) }
+}
+~~~
+
+Notice that you no longer need the `userDao` separately for that. Also note that `required`/`optional` choice now depends on what the return of the new function is, rather than whether or not `userDao` by itself is.
+
+You can do other stuff in your injection functions, like convert the injected value into something else that you need for the current context.
+
+~~~kotlin
+class ExampleActivity : AppCompatActivity(), Injects<Module> {
+    private val authHttpClient by required { auth.httpClient }
+    
+    ...
+}
+~~~
+
+In the above example, we're not just injecting the `auth` dependency from before, but also retrieving its `httpClient` property.
+
+While you're not technically limited by what you can do inside these injection functions, try not to overdo it. It's similar to data bindings, where you *can* perform calculations and other complex calls right in the template file, but you know you shouldn't.
+
 <a name="manual-injection"/>
 ### Manual injection
 
@@ -280,23 +348,6 @@ class Screen {
     }
 }
 ~~~
-
-<a name="variable-delegates"/>
-### Variable delegates
-
-In most cases you would make the injected properties `val`, however there's no reason it can't be a `var`, which would allow you to reassign it before or after injection.
-
-~~~kotlin
-var firstName by required { firstName }
-
-init {
-    firstName = "before"
-    kap.inject(Application.module)
-    firstName = "after"
-}
-~~~
-
-Note that any delegates can be injected repeatedly, regardless of whether they're `val` or `var`, because the initialized value is contained within the delegate and it's a nullable `var`.
 
 <a name="kotlin-1.0-vs-1.1"/>
 ## Kotlin 1.0 vs 1.1
