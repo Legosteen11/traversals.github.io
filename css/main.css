@@ -85,13 +85,13 @@ hr {
 
 /* Header */
 
-#header {
-	background-color: #393b3c;
+#hero {
+    text-align: center;
+    background: url('../assets/images/logo_medium.png') no-repeat center center;
 }
 
-#header #cover {
-    text-align: center;
-    background: #ffffff url('../assets/images/logo_medium.png') no-repeat center center;
+#header {
+	background-color: #393b3c;
 }
 
 #header #nav {
@@ -186,7 +186,7 @@ hr {
         max-width: 900px!important;
     }
     
-    #header #cover {
+    #hero {
         height: 100px;
         background-size: 80px 80px;
     }
@@ -209,7 +209,7 @@ hr {
         max-width: 900px!important;
     }
     
-    #header #cover {
+    #hero {
         height: 55px;
         background-size: 40px 40px;
     }
