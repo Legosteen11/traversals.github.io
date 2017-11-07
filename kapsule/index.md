@@ -282,6 +282,8 @@ Finally, when instantiating the module, you need to call `transitive()` on the m
 val module = Module(MainDataModule(), MainLogicModule()).transitive()
 ~~~
 
+Note that circular dependencies are not supported, because resolution is performed iteratively and in a single pass. Take care in defining your dependency structure to avoid this situation.
+
 <a name="complex-dependencies"/>
 ### Complex dependencies
 
