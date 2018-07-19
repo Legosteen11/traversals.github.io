@@ -50,6 +50,11 @@
         var email = [String.fromCharCode(104, 101, 108, 108, 111), 'traversal', 'space'];
         var email = email[0] + '@' + email[1] + '.' + email[2];
         $('a.traversal-email').attr('href', 'mailto:' + email).text(email);
+
+        $('#back-to-top').click(function(){ 
+            $('html,body').animate({ scrollTop: 0 });
+            return false; 
+        });
     });
 	
 	function getQueryParam(name) {
