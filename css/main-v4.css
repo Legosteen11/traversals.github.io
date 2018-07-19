@@ -201,19 +201,20 @@ button:hover {
 /* Footer */
 
 #footer {
-    margin-top: 2px;
-    margin-bottom: 5px;
+    margin-top: 10px;
+    margin-bottom: 50px;
 	height: 50px;
 	line-height: 50px;
 	display: block;
-    opacity: .33;
+    opacity: .3;
 	text-align: center;
     font-size: 10pt;
-    color: #393b3c;
+    color: #000;
 }
 
-#footer a {
-    color: #393b3c;
+#footer img {
+    max-height: 14px;
+    vertical-align: middle;
 }
 
 /* Content */
@@ -235,6 +236,11 @@ button:hover {
 
 .section {
 	position: relative;
+}
+
+.section-content img {
+    max-width: 100%;
+    border-radius: 3px;
 }
 
 .fixed-width {
