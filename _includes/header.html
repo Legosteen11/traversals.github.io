@@ -2,16 +2,17 @@
     <div id="nav" class="fixed-width">
         <a href="{{ site.baseurl }}/" id="title" title="Home">
             <img src="{{ site.baseurl }}/assets/images/logo_hero.png"/>
-            <b>Traversal</b>&#8202;<small>space</small>
+            <span id="title-text"><b>Traversal</b>&#8202;<small>space</small></span>
         </a>
         <span id="menu">
-            <a href="{{ site.baseurl }}/" class="{% if page.id == "home" %}selected{% endif %}">Home</a> 
-            <a href="{{ site.baseurl }}/luxaforus" class="{% if page.id == "luxaforus" %}selected{% endif %}">Luxaforus</a> 
-            <a href="{{ site.baseurl }}/kapsule" class="{% if page.id == "kapsule" %}selected{% endif %}">Kapsule</a> 
-            <a href="{{ site.baseurl }}/support" class="{% if page.id == "support" %}selected{% endif %}">Support</a> 
-            <a href="https://github.com/{{ site.social_github }}" title="GitHub" target="_blank" class="icon">
-                <img src="{{ site.baseurl }}/assets/images/nav_github.png"/>
+            {% for section in site.sections %}
+            <a href="{{ site.baseurl }}{{ section.path }}" class="{% if page.id == section.id %}selected{% endif %}">{{ section.title }}</a> 
+            {% endfor %}
+            {% for service in site.services %}
+            <a href="{{ service.url }}" title="{{ service.title }}" target="_blank" class="icon">
+                <img src="{{ site.baseurl }}/assets/images/nav_{{ service.type }}.png"/>
             </a>
+            {% endfor %}
         </span>
     </div>
 </div>

@@ -142,7 +142,6 @@ button:hover {
 
 #header #nav #title {
     display: inline-block;
-    min-width: 160px;
     padding: 5px 0 5px 0;
     font-size: 16pt;
     text-decoration: none;
@@ -163,7 +162,6 @@ button:hover {
 #header #nav #menu {
     height: 100%;
     padding: 10px 0 10px 0;
-    margin-left: 15px;
     vertical-align: middle;
     text-transform: uppercase;
     font-size: 12pt;
@@ -256,6 +254,10 @@ button:hover {
 
 /* Generic media */
 
+img.hero {
+    border: 1px solid #ddd;
+}
+
 /* Desktop-only */
 
 @media only screen and (min-width: 600px) {
@@ -269,6 +271,14 @@ button:hover {
     
     #header #nav #title {
         display: inline;
+    }
+
+    #header #nav #title-text {
+        display: inline;
+    }
+
+    #header #nav #menu {
+        margin-left: 15px;
     }
     
     #content {
@@ -294,6 +304,14 @@ button:hover {
         display: block;
     }
     
+    #header #nav #title-text {
+        display: none;
+    }
+
+    #header #nav #menu {
+        margin-left: 8px;
+    }
+
     #content {
         padding: 15px 25px 25px 25px;
         border-radius: 0px;

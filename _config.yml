@@ -22,4 +22,29 @@ baseurl: ""
 title: "Traversal Space"
 
 # Social
-social_github: "traversals"
+services:
+  - title: GitHub
+    type: github
+    url: https://github.com/traversals
+
+# Sections
+sections:
+  - title: Home
+    id: home
+    path: /
+
+  - title: Blaster
+    id: blaster
+    path: /blaster
+
+  - title: Luxaforus
+    id: luxaforus
+    path: /luxaforus
+
+  - title: Kapsule
+    id: kapsule
+    path: /kapsule
+
+  - title: Support
+    id: support
+    path: /support
