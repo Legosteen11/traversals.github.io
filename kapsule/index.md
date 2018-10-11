@@ -51,14 +51,24 @@ To accomplish all of these, Kapsule is based on [delegation](http://kotlinlang.o
 ### Step 1: Download
 
 To use Kapsule in your project, include it as a dependency.
-  
-~~~
+
+#### Using Gradle:
+~~~gradle
 dependencies {
     compile "space.traversal.kapsule:kapsule-core:0.3"
 }
 ~~~
 
 Releases are simultaneously published to `jcenter()` and `mavenCentral()` repositories.
+
+##### Or Maven:
+~~~xml
+<dependency>
+    <groupId>space.traversal.kapsule</groupId>
+    <artifactId>kapsule-core</artifactId>
+    <version>0.3</version>
+</dependency>
+~~~
 
 <a name="create-a-module"/>
 ### Step 2: Create a module
