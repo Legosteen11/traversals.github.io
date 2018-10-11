@@ -61,7 +61,7 @@ dependencies {
 
 Releases are simultaneously published to `jcenter()` and `mavenCentral()` repositories.
 
-##### Or Maven:
+#### Or Maven:
 ~~~xml
 <dependency>
     <groupId>space.traversal.kapsule</groupId>
